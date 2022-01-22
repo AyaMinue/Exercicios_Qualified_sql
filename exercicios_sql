@@ -1,0 +1,34 @@
+-- 1 - Qual o produto mais vendido?
+
+SELECT tpr.nome, COUNT(tp.id_produto) 
+FROM tb_pedido tp
+JOIN tb_produtos tpr ON tp.id_produto = tpr.id_produto
+GROUP BY tpr.nome 
+ORDEN BY COUNT(tp.id_produto) DESC;
+
+-- 2 - Qual o meu cliente mais frequente?
+
+SELECT tc.id_cliente, tc.nome, COUNT(tc.id_cliente) 
+FROM tb_pedido tp
+JOIN tb_cliente tc ON tp.id_cliente = tc.id_cliente
+GROUP BY tc.nome, tc.id_cliente
+ORDER BY COUNT(tc.id_cliente) DESC;
+
+-- 3 - Qual a média do valor da venda das compras realizadas?
+
+SELECT AVG(tpr.valor_produto) 
+FROM tb_produtos tpr
+JOIN tb_pedido tp ON tp.id_produto = tpr.id_produto
+
+--  4 - Qual o produto mais comprado por cada cliente?
+
+SELECT tc.id_cliente, tc.nome, tpr.nome, COUNT(tpr.id_produto) 
+FROM tb_pedido tp
+JOIN tb_cliente tc ON tp.id_cliente = tc.id_cliente
+JOIN tb_produtos tpr ON tpr.id_produto = tp.id_produto
+GROUP BY tc.id_cliente, tc.nome, tpr.nome
+ORDER BY COUNT(tpr.id_produto) DESC;
+
+
+
+
